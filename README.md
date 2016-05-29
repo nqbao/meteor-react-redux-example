@@ -12,6 +12,9 @@ The goal of this exploration is to propose an integration approach that:
   * Provide a clear guideline how to use Meteor API like Collection, Subscription, Method, etc within Redux.
   * Embrace best practices from all frameworks.
 
+# Data flow diagram
+
+![Data flow diagram](./dataflow.svg)
 
 # References
 
