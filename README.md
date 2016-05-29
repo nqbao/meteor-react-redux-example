@@ -1,7 +1,8 @@
 # meteor-react-redux-example
 
-This is a sample TODO app written in Meteor, React, and Redux. I use this as a sandbox to explore 
-the possibility to integrate these frameworks together.
+This is a sample TODO app written in Meteor, React, and Redux. I start from tutorial app from Meteor and continue
+the integration from that, so most of the UI is from [here](https://www.meteor.com/tutorials/react/creating-an-app). I use this as a sandbox to explore the possibility to 
+integrate these frameworks together.
 
 # Goal
 

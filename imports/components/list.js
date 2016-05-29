@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { toggleTodo, removeTodo } from '../actionCreators';
+import { getVisibleTodos } from '../store/selectors';
 
 import Task from './task.jsx';
  
 const mapStateToProps = (state) => {
   return {
-    todos: state.todos.filter(todo => state.visibilityFilter === 'ALL' || !todo.checked)
+    todos: getVisibleTodos(state)
   }
 };
 
