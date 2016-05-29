@@ -14,7 +14,7 @@ The goal of this exploration is to propose an integration approach that:
 
 # Data flow diagram
 
-![Data flow diagram](./dataflow.svg)
+![Data flow diagram](./dataflow.png)
 
 # References
 
