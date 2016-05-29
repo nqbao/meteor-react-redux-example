@@ -1,15 +1,60 @@
+import { Meteor } from 'meteor/meteor';
 import { createAction } from 'redux-actions';
+import Tasks from './api/tasks/collection';
 
-let nextTodoId = 0;
+export const subscribeToCursor = cursor => dispatch => {
+  const meta = {
+    collection: cursor.collection.name
+  };
+
+  cursor.observe({
+    added(item) {
+      dispatch({
+        type: 'METEOR_ITEM_ADDED',
+        payload: item,
+        meta
+      });
+    },
+
+    changed(item) {
+      dispatch({
+        type: 'METEOR_ITEM_CHANGED',
+        payload: item,
+        meta
+      });
+    },
+
+    removed(item) {
+      dispatch({
+        type: 'METEOR_ITEM_REMOVED',
+        payload: item,
+        meta
+      });
+    }
+  });
+};
 
 export const ADD_TODO = 'ADD_TODO';
-export const addTodo = createAction(ADD_TODO, text => ({ text, id: nextTodoId++ }));
+export const addTodo = text => dispatch => {
+  dispatch({ type: ADD_TODO, payload: { text } });
+  Tasks.insert({ text });
+};
 
 export const REMOVE_TODO = 'REMOVE_TODO';
-export const removeTodo = createAction(REMOVE_TODO, id => ({ id }));
+export const removeTodo = id => dispatch => {
+  dispatch({ type: REMOVE_TODO, payload: { id } });
+  Tasks.remove(id);
+};
 
 export const TOGGLE_TODO = 'TOGGLE_TODO';
-export const toggleTodo = createAction(TOGGLE_TODO, id => ({ id }));
+export const toggleTodo = id => dispatch => {
+  dispatch({ type: TOGGLE_TODO, payload: { id } });
+  const task = Tasks.findOne(id);
+
+  if (task) {
+    Tasks.update({ _id: id }, { $set: { checked: !task.checked } })
+  }
+};
 
 export const TOGGLE_VISIBILITY_FILTER = 'TOGGLE_VISIBILITY_FILTER';
 export const toggleVisibilityFilter = createAction(TOGGLE_VISIBILITY_FILTER);

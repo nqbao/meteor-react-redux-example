@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
+import { compose } from 'recompose';
+import meteorSubscribe from '../lib/subscribe';
 import { connect } from 'react-redux'
 import TaskList from './list';
 import { addTodo, toggleVisibilityFilter } from '../actionCreators';
+import Tasks from '../api/tasks/collection';
+import cursorListener from '../lib/cursorListener';
 
 class App extends Component {
   constructor(props) {
@@ -54,12 +58,17 @@ class App extends Component {
   }
 }
 
-export default connect(
-  (state => ({
-    visibilityFilter: state.visibilityFilter === 'NONE'
-  })),
-  (dispatch) => ({
-    addTodo: (text) => dispatch(addTodo(text)),
-    toggleVisibilityFilter: () => dispatch(toggleVisibilityFilter())
-  })
-)(App);
+const enhancer = compose(
+  connect(
+    state => ({
+      visibilityFilter: state.visibilityFilter === 'NONE'
+    }),
+    dispatch=> ({
+      addTodo: (text) => dispatch(addTodo(text)),
+      toggleVisibilityFilter: () => dispatch(toggleVisibilityFilter())
+    })
+  ),
+  meteorSubscribe('todos')
+);
+
+export default enhancer(App);

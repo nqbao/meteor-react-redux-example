@@ -24,8 +24,8 @@ class TaskList extends Component {
     return this.props.todos.map((task, i) => (
       <Task 
         key={i} task={task} 
-        onToggled={() => this.props.toggleTodo(task.id)}
-        onDeleted={() => this.props.removeTodo(task.id)}
+        onToggled={() => this.props.toggleTodo(task._id)}
+        onDeleted={() => this.props.removeTodo(task._id)}
         />
     ));
   }
