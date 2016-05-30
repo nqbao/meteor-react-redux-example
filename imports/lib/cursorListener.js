@@ -35,16 +35,21 @@ const subscribeToCursor = (cursor, dispatch) => {
   });
 };
 
+// TODO: we can pass extra metadata so reducer can work with multi-cursor
 const cursorListener = fn => BaseComponent => {
   let handler;
   const component = class extends BaseComponent {
     componentDidMount() {
+      if (super.componentDidMount) super.componentDidMount();
+
       const cursor = fn(this.props);
 
       handler = subscribeToCursor(cursor, this.context.store.dispatch);
     }
 
     componentWillUnmount() {
+      if (super.componentDidMount) super.componentDidMount();
+
       handler.stop();
     }
   };

@@ -2,30 +2,18 @@ import React, { Component } from 'react';
 import { compose } from 'recompose';
 import meteorSubscribe from '../lib/subscribe';
 import { connect } from 'react-redux'
-import TaskList from './list';
-import { addTodo, toggleVisibilityFilter } from '../actionCreators';
+import { toggleVisibilityFilter } from '../actionCreators';
 import Tasks from '../api/tasks/collection';
 import cursorListener from '../lib/cursorListener';
 
+import TaskList from './list';
+import AddTodoForm from './addtodo';
+
 class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
   renderTasks() {
     return this.getTasks().map((task, i) => (
       <Task key={i} task={task} />
     ));
-  }
-
-  handleSubmit(e) {
-    const todo = this.refs.textInput.value;
-    this.props.addTodo(todo);
-
-    e.stopPropagation();
-    e.preventDefault();
   }
  
   render() {
@@ -43,13 +31,7 @@ class App extends Component {
             Hide Completed Tasks
           </label>
 
-          <form className="new-task" onSubmit={this.handleSubmit} >
-            <input
-              type="text"
-              ref="textInput"
-              placeholder="Type to add new tasks"
-            />
-          </form>
+          <AddTodoForm />
         </header>
 
         <TaskList />
@@ -63,8 +45,7 @@ const enhancer = compose(
     state => ({
       visibilityFilter: state.visibilityFilter === 'NONE'
     }),
-    dispatch=> ({
-      addTodo: (text) => dispatch(addTodo(text)),
+    dispatch => ({
       toggleVisibilityFilter: () => dispatch(toggleVisibilityFilter())
     })
   ),

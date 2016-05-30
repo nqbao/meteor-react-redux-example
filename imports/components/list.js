@@ -18,7 +18,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 const EmptyTaskPlaceHolder = () => (<ul><li><em>There is no task yet.</em></li></ul>);
 
-// App component - represents the whole app
 class TaskList extends Component {
   renderTasks() {
     return this.props.todos.map((task, i) => (
