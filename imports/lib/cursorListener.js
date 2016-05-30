@@ -1,43 +1,59 @@
 import { PropTypes } from 'react';
-import { Tracker } from 'meteor/tracker';
-import { lifecycle, getContext, compose } from 'recompose';
+import { lifecycle } from 'recompose';
 import createHelper  from 'recompose/createHelper';
+import { METEOR_ITEM_ADDED, METEOR_ITEM_CHANGED, METEOR_ITEM_REMOVED} from './constants';
 
-const subscribeToCursor = (cursor) => {
+const subscribeToCursor = (cursor, dispatch) => {
+  const meta = {
+    collection: cursor.collection.name
+  };
+
   return cursor.observe({
     added(item) {
-      console.log('added', item);
+      dispatch({
+        type: METEOR_ITEM_ADDED,
+        payload: item,
+        meta
+      });
     },
 
     changed(item) {
-      console.log('changed', item);
+      dispatch({
+        type: METEOR_ITEM_CHANGED,
+        payload: item,
+        meta
+      });
     },
 
     removed(item) {
-      console.log('removed', item);
+      dispatch({
+        type: METEOR_ITEM_REMOVED,
+        payload: item,
+        meta
+      });
     }
   });
 };
 
-const cursorListener = fn => {
+const cursorListener = fn => BaseComponent => {
   let handler;
+  const component = class extends BaseComponent {
+    componentDidMount() {
+      const cursor = fn(this.props);
 
-  return compose(
-    lifecycle({
-      componentDidMount() {
-        const cursor = fn(this.props);
+      handler = subscribeToCursor(cursor, this.context.store.dispatch);
+    }
 
-        handler = subscribeToCursor(cursor);
-      },
+    componentWillUnmount() {
+      handler.stop();
+    }
+  };
 
-      componentWillUnmount() {
-        handler.stop();
-      }
-    }),
-    getContext({
-      store: PropTypes.object
-    })
-  );
+  component.contextTypes = {
+    store: PropTypes.object
+  };
+
+  return component;
 };
 
 export default createHelper(cursorListener, 'cursorListener');

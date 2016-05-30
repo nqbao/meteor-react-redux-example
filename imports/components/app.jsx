@@ -68,7 +68,8 @@ const enhancer = compose(
       toggleVisibilityFilter: () => dispatch(toggleVisibilityFilter())
     })
   ),
-  meteorSubscribe('todos')
+  meteorSubscribe('todos'),
+  cursorListener(() => Tasks.find())
 );
 
 export default enhancer(App);

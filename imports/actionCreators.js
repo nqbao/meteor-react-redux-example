@@ -2,38 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import { createAction } from 'redux-actions';
 import Tasks from './api/tasks/collection';
 
-export const subscribeToCursor = cursor => dispatch => {
-  const meta = {
-    collection: cursor.collection.name
-  };
-
-  cursor.observe({
-    added(item) {
-      dispatch({
-        type: 'METEOR_ITEM_ADDED',
-        payload: item,
-        meta
-      });
-    },
-
-    changed(item) {
-      dispatch({
-        type: 'METEOR_ITEM_CHANGED',
-        payload: item,
-        meta
-      });
-    },
-
-    removed(item) {
-      dispatch({
-        type: 'METEOR_ITEM_REMOVED',
-        payload: item,
-        meta
-      });
-    }
-  });
-};
-
 export const ADD_TODO = 'ADD_TODO';
 export const addTodo = text => dispatch => {
   dispatch({ type: ADD_TODO, payload: { text } });
