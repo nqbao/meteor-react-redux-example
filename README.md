@@ -23,5 +23,4 @@ The goal of this exploration is to propose an integration approach that:
   * https://medium.com/modern-user-interfaces/how-we-redux-part-1-introduction-18a24c3b7efe
   * https://subvisual.co/blog/posts/79-a-bridge-between-redux-and-meteor
   * https://atmospherejs.com/meteor/react-meteor-data
-
-
+  * https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0#.ry4qjvhng

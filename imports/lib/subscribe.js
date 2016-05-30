@@ -11,8 +11,8 @@ const meteorSubscribe = (factory, onReady) => {
       let options;
       let returnOptions = factory;
 
-      if (typeof subscription === 'function') {
-        returnOptions = subscription(this.props);
+      if (typeof returnOptions === 'function') {
+        returnOptions = returnOptions(this.props);
       }
 
       if (typeof returnOptions === 'string') {

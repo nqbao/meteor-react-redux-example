@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { compose } from 'recompose';
-import meteorSubscribe from '../lib/subscribe';
+import { compose } from 'recompose';;
 import { connect } from 'react-redux'
 import { toggleVisibilityFilter } from '../actionCreators';
 import Tasks from '../api/tasks/collection';
+import meteorSubscribe from '../lib/subscribe'
 import cursorListener from '../lib/cursorListener';
 
 import TaskList from './list';

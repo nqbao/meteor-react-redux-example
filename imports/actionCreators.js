@@ -2,17 +2,26 @@ import { Meteor } from 'meteor/meteor';
 import { createAction } from 'redux-actions';
 import Tasks from './api/tasks/collection';
 
-export const ADD_TODO = 'ADD_TODO';
-export const addTodo = text => dispatch => {
-  dispatch({ type: ADD_TODO, payload: { text } });
-  Tasks.insert({ text });
+const createMeteorAction = (type, payloadTransfomer, meteorMeta) => (...args) => dispatch => {
+  dispatch({
+    type,
+    payload: payloadTransfomer ? payloadTransfomer(...args) : args[0],
+    meta: {
+      meteor: meteorMeta
+    }
+  });
 };
 
+const createCollectionAction = (collection, type, payloadTransfomer) =>
+  createMeteorAction(type, payloadTransfomer, {
+    collection: typeof collection === 'object' ? collection._name : collection
+  });
+
+export const ADD_TODO = 'ADD_TODO';
+export const addTodo = createCollectionAction(Tasks, ADD_TODO, (text) => ({ text }));
+
 export const REMOVE_TODO = 'REMOVE_TODO';
-export const removeTodo = id => dispatch => {
-  dispatch({ type: REMOVE_TODO, payload: { id } });
-  Tasks.remove(id);
-};
+export const removeTodo = createCollectionAction(Tasks, REMOVE_TODO);
 
 export const TOGGLE_TODO = 'TOGGLE_TODO';
 export const toggleTodo = id => dispatch => {
