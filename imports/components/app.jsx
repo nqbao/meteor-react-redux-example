@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { compose } from 'recompose';;
+import { compose } from 'recompose';
 import { connect } from 'react-redux'
-import { toggleVisibilityFilter } from '../actionCreators';
+import { toggleVisibilityFilter, removeAllTasks } from '../actionCreators';
 import Tasks from '../api/tasks/collection';
 import meteorSubscribe from '../lib/subscribe'
 import cursorListener from '../lib/cursorListener';
 
 import TaskList from './list';
-import AddTodoForm from './addtodo';
+import AddTaskForm from './addtodo';
 
 class App extends Component {
   renderTasks() {
@@ -30,10 +30,8 @@ class App extends Component {
             />
             Hide Completed Tasks
           </label>
-
-          <AddTodoForm />
+          <AddTaskForm />
         </header>
-
         <TaskList />
       </div>
     );

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { toggleTodo, removeTodo } from '../actionCreators';
+import { toggleTodo, removeTodo, removeAllTasks } from '../actionCreators';
 import { getVisibleTodos } from '../store/selectors';
 
 import Task from './task.jsx';
@@ -14,9 +14,16 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   toggleTodo: (id) => dispatch(toggleTodo(id)),
   removeTodo: (id) => dispatch(removeTodo(id)),
+  removeAllTasks: () => dispatch(removeAllTasks()),
 });
 
 const EmptyTaskPlaceHolder = () => (<ul><li><em>There is no task yet.</em></li></ul>);
+
+const RemoveAllTasks = (props) => (
+  <div {...props} className='remove-all-tasks'>
+    Remove all tasks
+  </div>
+);
 
 class TaskList extends Component {
   renderTasks() {
@@ -28,17 +35,24 @@ class TaskList extends Component {
         />
     ));
   }
- 
+
   render() {
     return (
-      <ul>
-        {this.props.todos.length ? 
-          this.renderTasks() :
-          <EmptyTaskPlaceHolder />
-        }
-      </ul>
+      <div>
+        <ul>
+          {this.props.todos.length ?
+            this.renderTasks() :
+            <EmptyTaskPlaceHolder />
+          }
+        </ul>
+        {this.props.todos.length > 0 && <RemoveAllTasks onClick={this.props.removeAllTasks} />}
+      </div>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TaskList);
+const enhancer = (
+  connect(mapStateToProps, mapDispatchToProps)
+);
+
+export default enhancer(TaskList);

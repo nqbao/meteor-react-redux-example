@@ -1,12 +1,11 @@
 import React from 'react';
 import { compose } from 'recompose';
 import { connect } from 'react-redux'
-import { addTodo } from '../actionCreators';
+import { addTask } from '../actionCreators';
 
-class AddTodoForm extends React.Component {
-
+class AddTaskForm extends React.Component {
   handleSubmit(e) {
-    this.props.addTodo(this.refs.textInput.value);
+    this.props.addTask(this.refs.textInput.value);
 
     e.stopPropagation();
     e.preventDefault();
@@ -27,8 +26,8 @@ class AddTodoForm extends React.Component {
 
 const enhancer = compose(
   connect(null, dispatch=> ({
-    addTodo: (text) => dispatch(addTodo(text)),
+    addTask: (text) => dispatch(addTask(text)),
   }))
 );
 
-export default enhancer(AddTodoForm);
+export default enhancer(AddTaskForm);

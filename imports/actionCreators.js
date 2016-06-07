@@ -2,30 +2,15 @@ import { Meteor } from 'meteor/meteor';
 import { createAction } from 'redux-actions';
 import Tasks from './api/tasks/collection';
 
-const createMeteorAction = (type, payloadTransfomer, meteorMeta) => (...args) => dispatch => {
-  dispatch({
-    type,
-    payload: payloadTransfomer ? payloadTransfomer(...args) : args[0],
-    meta: {
-      meteor: meteorMeta
-    }
-  });
+export const addTask = (text) => () => {
+  Tasks.insert({ text });
 };
 
-const createCollectionAction = (collection, type, payloadTransfomer) =>
-  createMeteorAction(type, payloadTransfomer, {
-    collection: typeof collection === 'object' ? collection._name : collection
-  });
+export const removeTodo = (id) => () => {
+  Tasks.remove({ _id: id });
+};
 
-export const ADD_TODO = 'ADD_TODO';
-export const addTodo = createCollectionAction(Tasks, ADD_TODO, (text) => ({ text }));
-
-export const REMOVE_TODO = 'REMOVE_TODO';
-export const removeTodo = createCollectionAction(Tasks, REMOVE_TODO);
-
-export const TOGGLE_TODO = 'TOGGLE_TODO';
-export const toggleTodo = id => dispatch => {
-  dispatch({ type: TOGGLE_TODO, payload: { id } });
+export const toggleTodo = id => () => {
   const task = Tasks.findOne(id);
 
   if (task) {
@@ -33,5 +18,16 @@ export const toggleTodo = id => dispatch => {
   }
 };
 
+// view state actions
 export const TOGGLE_VISIBILITY_FILTER = 'TOGGLE_VISIBILITY_FILTER';
 export const toggleVisibilityFilter = createAction(TOGGLE_VISIBILITY_FILTER);
+
+export const REMOVE_ALL_TASK_SUCCESS = 'REMOVE_ALL_TASK_SUCCESS';
+export const REMOVE_ALL_TASK_ERROR = 'REMOVE_ALL_TASK_ERROR';
+export const removeAllTasks = () => (dispatch) => {
+  dispatch({ type: 'REMOVE_ALL_TASK_REQUEST' });
+  Meteor.call('removeAllTasks', (error, result) => {
+    if (error) dispatch({ type: REMOVE_ALL_TASK_ERROR, payload: error });
+    else dispatch({ type: REMOVE_ALL_TASK_SUCCESS, payload: result });
+  });
+};

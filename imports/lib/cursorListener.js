@@ -3,7 +3,7 @@ import { lifecycle } from 'recompose';
 import createHelper  from 'recompose/createHelper';
 import { METEOR_ITEM_ADDED, METEOR_ITEM_CHANGED, METEOR_ITEM_REMOVED} from './constants';
 
-const subscribeToCursor = (cursor, dispatch) => {
+export const subscribeToCursor = (cursor, dispatch) => {
   const meta = {
     collection: cursor.collection.name
   };
@@ -35,13 +35,12 @@ const subscribeToCursor = (cursor, dispatch) => {
   });
 };
 
-// TODO: we can pass extra metadata so reducer can work with multi-cursor
+// TODO: we can pass extra metadata so reducer can work with multiple cursors of the same collection
 const cursorListener = fn => BaseComponent => {
   let handler;
   const component = class extends BaseComponent {
     componentDidMount() {
       if (super.componentDidMount) super.componentDidMount();
-
       const cursor = fn(this.props);
 
       handler = subscribeToCursor(cursor, this.context.store.dispatch);

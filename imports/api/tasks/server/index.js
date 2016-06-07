@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import Tasks from '../collection';
 import './publications';
 
@@ -6,4 +7,10 @@ Tasks.allow({
   insert: () => true,
   update: () => true,
   remove: () => true
+});
+
+Meteor.methods({
+  'removeAllTasks'() {
+    return Tasks.remove({});
+  }
 });

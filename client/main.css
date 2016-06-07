@@ -108,6 +108,12 @@ header .hide-completed {
 .toggle-private {
   margin-left: 5px;
 }
+
+.remove-all-tasks {
+  text-align: right;
+  padding: 0.5em 15px;
+  cursor: pointer;
+}
  
 @media (max-width: 600px) {
   li {
