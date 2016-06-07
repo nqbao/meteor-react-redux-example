@@ -88,7 +88,7 @@ in your reducers, you can capture the change into store as below:
 ``` javascript
 import { makeCursorReducer } from '../lib/cursorReducer';
 import Tasks from 'path/to/imports/api/yourCollection';
-import { combineReducers } from 'redux ;
+import { combineReducers } from 'redux' ;
 
 const tasks = makeCursorReducer(tasks);
 
