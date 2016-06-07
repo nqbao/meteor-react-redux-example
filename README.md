@@ -85,7 +85,7 @@ export default enhancer(YourComponent);
 When YourComponent is mounted, it will listen to the cursor and start dispatching actions when there are changes. Then
 in your reducers, you can capture the change into store as below:
 
-```
+``` javascript
 import { makeCursorReducer } from '../lib/cursorReducer';
 import Tasks from 'path/to/imports/api/yourCollection';
 import { combineReducers } from 'redux ;
@@ -114,10 +114,6 @@ export const toggleTask = (id, checked) => () => {
   Tasks.update({ _id: id }, { $set: { checked } });
 };
 ```
-
-# Data flow diagram
-
-![Data flow diagram](./dataflow.png)
 
 # References
 
