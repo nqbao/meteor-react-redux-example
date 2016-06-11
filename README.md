@@ -4,7 +4,7 @@ This is a sample TODO app written in Meteor, React, and Redux. I start from tuto
 the integration from that, so most of the UI is from [here](https://www.meteor.com/tutorials/react/creating-an-app).
 I use this as a sandbox to explore the possibility to integrate these frameworks together.
 
-Please note that this is still a **WIP**.
+If you have any question or feedback, feel free to submit a PR or open an issue.
 
 # Goal
 
@@ -114,6 +114,12 @@ export const toggleTask = (id, checked) => () => {
   Tasks.update({ _id: id }, { $set: { checked } });
 };
 ```
+
+# FAQ
+
+- Why don't we use createContainer from [meteor-react-data](http://guide.meteor.com/react.html#data) to fill data from Collection into Component?
+Because we want to enforce uni-directional dataflow, and Component will only receive data from Redux store. 
+
 
 # References
 
