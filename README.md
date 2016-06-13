@@ -118,7 +118,12 @@ export const toggleTask = (id, checked) => () => {
 # FAQ
 
 - Why don't we use createContainer from [meteor-react-data](http://guide.meteor.com/react.html#data) to fill data from Collection into Component?
-Because we want to enforce uni-directional dataflow, and Component will only receive data from Redux store. 
+Because we want to enforce uni-directional dataflow, and Component will receive data only from Redux store. 
+
+- When should we use Component state and when to use redux store?
+In general, we should use redux store as much as we can. But sometime it may be too much to store everything inside the redux store. 
+If the data is only used within the Component then we can use it as component state. But if the data will be used by another component we should
+store the data in redux store instead.
 
 
 # References
