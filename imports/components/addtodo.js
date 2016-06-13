@@ -4,11 +4,23 @@ import { connect } from 'react-redux'
 import { addTask } from '../actionCreators';
 
 class AddTaskForm extends React.Component {
-  handleSubmit(e) {
-    this.props.addTask(this.refs.textInput.value);
+  constructor(props) {
+    super(props);
 
-    e.stopPropagation();
+    this.state = { text: '' };
+  }
+
+  handleTextChange(e) {
+    this.setState({ text: e.target.value });
+  }
+
+  handleSubmit(e) {
     e.preventDefault();
+
+    const { addTask } = this.props;
+
+    addTask(this.state.text);
+    this.setState({ text: '' });
   }
 
   render() {
@@ -16,8 +28,9 @@ class AddTaskForm extends React.Component {
       <form className="new-task" onSubmit={this.handleSubmit.bind(this)}>
         <input
           type="text"
-          ref="textInput"
+          value={this.state.text}
           placeholder="Type to add new tasks"
+          onChange={this.handleTextChange.bind(this)}
         />
       </form>
     );
