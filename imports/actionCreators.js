@@ -3,19 +3,15 @@ import { createAction } from 'redux-actions';
 import Tasks from './api/tasks/collection';
 
 export const addTask = (text) => () => {
-  Tasks.insert({ text });
+  Meteor.call('addTask', { text });
 };
 
-export const removeTodo = (id) => () => {
-  Tasks.remove({ _id: id });
+export const removeTask = (id) => () => {
+  Meteor.call('removeTask', { id });
 };
 
-export const toggleTodo = id => () => {
-  const task = Tasks.findOne(id);
-
-  if (task) {
-    Tasks.update({ _id: id }, { $set: { checked: !task.checked } })
-  }
+export const toggleTask = (id) => () => {
+  Meteor.call('toggleTask', { id });
 };
 
 // view state actions
@@ -24,6 +20,7 @@ export const toggleVisibilityFilter = createAction(TOGGLE_VISIBILITY_FILTER);
 
 export const REMOVE_ALL_TASK_SUCCESS = 'REMOVE_ALL_TASK_SUCCESS';
 export const REMOVE_ALL_TASK_ERROR = 'REMOVE_ALL_TASK_ERROR';
+
 export const removeAllTasks = () => (dispatch) => {
   dispatch({ type: 'REMOVE_ALL_TASK_REQUEST' });
   Meteor.call('removeAllTasks', (error, result) => {
