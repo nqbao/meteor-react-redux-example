@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { toggleTodo, removeTodo, removeAllTasks } from '../actionCreators';
+import { toggleTask, removeTask, removeAllTasks } from '../actionCreators';
 import { getVisibleTodos } from '../store/selectors';
 
 import Task from './task.jsx';
- 
+
 const mapStateToProps = (state) => {
   return {
     todos: getVisibleTodos(state)
@@ -12,8 +12,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  toggleTodo: (id) => dispatch(toggleTodo(id)),
-  removeTodo: (id) => dispatch(removeTodo(id)),
+  toggleTask: (id) => dispatch(toggleTask(id)),
+  removeTask: (id) => dispatch(removeTask(id)),
   removeAllTasks: () => dispatch(removeAllTasks()),
 });
 
@@ -28,10 +28,10 @@ const RemoveAllTasks = (props) => (
 class TaskList extends Component {
   renderTasks() {
     return this.props.todos.map((task, i) => (
-      <Task 
-        key={i} task={task} 
-        onToggled={() => this.props.toggleTodo(task._id)}
-        onDeleted={() => this.props.removeTodo(task._id)}
+      <Task
+        key={i} task={task}
+        onToggled={() => this.props.toggleTask(task._id)}
+        onDeleted={() => this.props.removeTask(task._id)}
         />
     ));
   }
