@@ -27,11 +27,13 @@ const RemoveAllTasks = (props) => (
 
 class TaskList extends Component {
   renderTasks() {
-    return this.props.todos.map((task, i) => (
+    const { todos, toggleTask, removeTask } = this.props;
+
+    return todos.map((task, i) => (
       <Task
         key={i} task={task}
-        onToggled={() => this.props.toggleTask(task._id)}
-        onDeleted={() => this.props.removeTask(task._id)}
+        onToggled={() => toggleTask(task._id)}
+        onDeleted={() => removeTask(task._id)}
         />
     ));
   }
