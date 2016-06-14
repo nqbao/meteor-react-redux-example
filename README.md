@@ -17,6 +17,11 @@ The goal of this exploration is to propose an integration approach that:
 In general, we will place all side-effects call to redux actions using **react-thunk**. We try to avoid using unnecessary
 middleware or other libraries, unless it is really necessary.
 
+# TODOs
+
+* Accounts
+* SimpleSchema
+
 # Meteor Method
 
 Meteor Method can be considered as normal server-side call, and therefore is side-effect. We can wrap it inside an
@@ -125,7 +130,6 @@ In general, we should use redux store as much as we can. But sometime it may be 
 If the data is only used within the Component then we can use it as component state. But if the data will be used by another component we should
 store the data in redux store instead.
 
-
 # References
 
   * http://guide.meteor.com/react.html
@@ -134,3 +138,4 @@ store the data in redux store instead.
   * https://subvisual.co/blog/posts/79-a-bridge-between-redux-and-meteor
   * https://atmospherejs.com/meteor/react-meteor-data
   * https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0#.ry4qjvhng
+  * https://github.com/acdlite/flux-standard-action
