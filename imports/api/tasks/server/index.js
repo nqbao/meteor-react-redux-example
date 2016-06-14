@@ -10,13 +10,13 @@ Tasks.allow({
 });
 
 Meteor.methods({
-  'addTask'({text}) {
+  'addTask'({ text }) {
     return Tasks.insert({
       text,
       createdAt: new Date()
     });
   },
-  'removeTask'({id}) {
+  'removeTask'({ id }) {
     return Tasks.remove({ _id: id });
   },
   'removeAllTasks'() {

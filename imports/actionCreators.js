@@ -1,6 +1,5 @@
 import { Meteor } from 'meteor/meteor';
 import { createAction } from 'redux-actions';
-import Tasks from './api/tasks/collection';
 
 export const addTask = (text) => () => {
   Meteor.call('addTask', { text });

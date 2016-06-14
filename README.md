@@ -103,20 +103,39 @@ export default combineReducers({
 });
 ```
 
-### Create/Update/Delete
+### Create / Update / Delete
 
-All CUD activities to Meteor collection are considered as side effect, because it changes the underlying storage. It is
-best to wrap all manipulation calls in actions, the change from the collection will propagate through cursor listener. 
-There should be no Collection manipulation in reducers.
+Collection mutators are implemented as methods. When we call any of these functions on client side, we're actually 
+invoking a method. For simplicity, we can wrap all collection mutations into methods. It is also better for security reason.
+There should be no direct manipulation at client side at all.
 
+On server side:
+
+``` javascript
+Meteor.methods({
+  'addTask'({ text }) {
+    return Tasks.insert({ text });
+  },
+
+  'toggleTask'({ id }) {
+    const task = Tasks.findOne(id);
+    
+    if (task) {
+      return Tasks.update({ _id: id }, { $set: { checked: !task.checked } })
+    }
+  }
+});
+```
+
+On client side:
 
 ``` javascript
 export const addTask = (text) => () => {
-  Tasks.insert({ text });
+  Meteor.call('addTask', { text });
 };
 
-export const toggleTask = (id, checked) => () => {
-  Tasks.update({ _id: id }, { $set: { checked } });
+export const toggleTask = (id) => () => {
+  Meteor.call('toggleTask', { id });
 };
 ```
 
