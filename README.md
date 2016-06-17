@@ -37,6 +37,14 @@ export const removeAllTasks = () => (dispatch) => {
 };
 ```
 
+There is also a helper function to quickly create a meteor action call:
+
+``` javascript
+import { createMeteorAction } from './libs/meteorActions`;
+ 
+export removeAllTasks = createMeteorAction('removeAllTasks');
+```
+
 ## Collections
 
 ### Subscription
