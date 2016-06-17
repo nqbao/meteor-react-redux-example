@@ -7,8 +7,9 @@ import meteorSubscribe from '../lib/subscribe'
 import cursorListener from '../lib/cursorListener';
 import reactiveProps from '../lib/reactiveProps';
 
-import AccountsUIWrapper from '../components/accounts-ui-wrapper';
 import TaskListContainer from './list';
+
+import AccountsUIWrapper from '../components/accounts-ui-wrapper';
 import TaskList from '../components/list';
 import AddTaskForm from '../components/addtodo';
 
