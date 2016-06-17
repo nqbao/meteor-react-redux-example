@@ -6,16 +6,11 @@ import Tasks from '../api/tasks/collection';
 import meteorSubscribe from '../lib/subscribe'
 import cursorListener from '../lib/cursorListener';
 
-import TaskList from './list';
-import AddTaskForm from './addtodo';
+import TaskListContainer from './list';
+import TaskList from '../components/list';
+import AddTaskForm from '../components/addtodo';
 
 class App extends Component {
-  renderTasks() {
-    return this.getTasks().map((task, i) => (
-      <Task key={i} task={task} />
-    ));
-  }
- 
   render() {
     return (
       <div className="container">
@@ -32,7 +27,7 @@ class App extends Component {
           </label>
           <AddTaskForm />
         </header>
-        <TaskList />
+        <TaskListContainer />
       </div>
     );
   }

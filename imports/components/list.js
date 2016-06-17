@@ -1,21 +1,6 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux'
-import { toggleTask, removeTask, removeAllTasks } from '../actionCreators';
+import React  from 'react';
 import { getVisibleTodos } from '../store/selectors';
-
-import Task from './task.jsx';
-
-const mapStateToProps = (state) => {
-  return {
-    todos: getVisibleTodos(state)
-  }
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  toggleTask: (id) => dispatch(toggleTask(id)),
-  removeTask: (id) => dispatch(removeTask(id)),
-  removeAllTasks: () => dispatch(removeAllTasks()),
-});
+import Task from './task.js';
 
 const EmptyTaskPlaceHolder = () => (<ul><li><em>There is no task yet.</em></li></ul>);
 
@@ -25,7 +10,7 @@ const RemoveAllTasks = (props) => (
   </div>
 );
 
-class TaskList extends Component {
+class TaskList extends React.Component {
   renderTasks() {
     const { todos, toggleTask, removeTask } = this.props;
 
@@ -53,8 +38,4 @@ class TaskList extends Component {
   }
 }
 
-const enhancer = (
-  connect(mapStateToProps, mapDispatchToProps)
-);
-
-export default enhancer(TaskList);
+export default TaskList;
