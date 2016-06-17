@@ -16,7 +16,9 @@ export const Task = (props) => {
         onChange={props.onToggled}
       />
 
-      <span className='text'>{props.task.text}</span>
+      <span className="text">
+        <strong>{props.task.username}</strong>: {props.task.text}
+      </span>
     </li>
   );
 };

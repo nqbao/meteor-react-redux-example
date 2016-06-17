@@ -6,6 +6,8 @@ Meteor.methods({
   [ADD_TASK]({ text }) {
     return Tasks.insert({
       text,
+      owner: Meteor.userId(),
+      username: Meteor.user().username,
       createdAt: new Date()
     });
   },
