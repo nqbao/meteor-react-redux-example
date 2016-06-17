@@ -1,11 +1,11 @@
 import { Meteor } from 'meteor/meteor';
 import { createAction } from 'redux-actions';
-import { createMeteorAction } from './lib/meteorActions';
+import { createMeteorCallAction } from './lib/meteorActions';
 
-export const addTask = createMeteorAction('addTask', (text) => ({ text }));
-export const removeTask = createMeteorAction('removeTask', (id) => ({ id }));
-export const toggleTask = createMeteorAction('toggleTask', (id) => ({ id }));
-export const removeAllTasks = createMeteorAction('removeAllTasks');
+export const addTask = createMeteorCallAction('addTask', (text) => ({ text }));
+export const removeTask = createMeteorCallAction('removeTask', (id) => ({ id }));
+export const toggleTask = createMeteorCallAction('toggleTask', (id) => ({ id }));
+export const removeAllTasks = createMeteorCallAction('removeAllTasks');
 
 // view state actions
 export const TOGGLE_VISIBILITY_FILTER = 'TOGGLE_VISIBILITY_FILTER';

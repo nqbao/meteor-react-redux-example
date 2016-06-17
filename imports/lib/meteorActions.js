@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { identity } from 'lodash';
 
-export const createMeteorAction = (method, transform=identity) => (...args) => (dispatch) => {
+export const createMeteorCallAction = (method, transform=identity) => (...args) => (dispatch) => {
   const actionName = `meteor/${method}`;
 
   Meteor.call(method, transform(...args), (error, payload) => {
