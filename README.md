@@ -21,8 +21,11 @@ middleware or other libraries, unless it is really necessary.
 
 * Accounts
 * SimpleSchema
+* Router (React-Router or Iron-Router)
 
-# Meteor Method
+# Meteor
+
+## Methods
 
 Meteor Method can be considered as normal server-side call, and therefore is side-effect. We can wrap it inside an
 action and optionally dispatch call result.
@@ -166,3 +169,5 @@ store the data in redux store instead.
   * https://atmospherejs.com/meteor/react-meteor-data
   * https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0#.ry4qjvhng
   * https://github.com/acdlite/flux-standard-action
+  * https://github.com/DaxChen/meteor-react-redux-starter-kit
+
